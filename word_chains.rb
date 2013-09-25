@@ -66,6 +66,6 @@ end
 
 def build_chain(visited_words, word)
   return [] if word.nil?
-  chain = build_chain(visited_words, visited_words[word]) + [word]
+  build_chain(visited_words, visited_words[word]) + [word]
 end
 
