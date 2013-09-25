@@ -1,3 +1,5 @@
+require 'set'
+
 def adjacent_words(word)
   adj_word_dict = construct_adj_word_dict(word, "dictionary.txt")
   
@@ -44,23 +46,54 @@ def delete_words_not_valid(word, word_list)
   return_array
 end
 
-              # hello      # world
+              # hi          # to
 def find_chain(start_word, end_word, dictionary)
+  
   current_words = Set.new
   new_words = Set.new
   visited_words = {}
+  visited_words[start_word] = nil
   current_words.add(start_word)
-  add_adj_words_to_set(start_word, new_words)
+  found = false
   
+  until found
+    current_words.each do |word|
+
+      add_adj_words_to_new_set(word, new_words)
+      
+      new_words.each do |new_word|
+        visited_words[new_word] = word
+        if new_word == end_word
+          found = true
+          break
+        end
+      end
+      # break if found
+        
+      # current_words.clear
+      # new_words.each do |word|
+   #      current_words.add(word)
+   #    end
+      
+      # new_words.clear
+      # first_word = current_words.shift
+      # add_adj_words_to_set(first_word, new_words)
+      # new_words.
+      
+    end
+    current_words = new_words
+    new_words = Set.new
+  end
   
-  
+  visited_words
 end
 
 
-def add_adj_words_to_set(word, new_words)
+def add_adj_words_to_new_set(word, new_words)
   adj_list = adjacent_words(word)
   adj_list.each do |adj_word|
     new_words.add(adj_word)
+    # visited_words[adj_word] = word
   end
 end
 
@@ -69,4 +102,4 @@ end
 def build_chain(visited_words, word)
 end
 
-# adjacent_words("dictionary.txt")
+# p adjacent_words("hi")
